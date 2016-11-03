@@ -39,8 +39,6 @@ class BetterSorryState implements State
     //  private fields & methods
 
     private AtomicIntegerArray value;
-    int ival;
-    int jval;
     private byte maxval;
     private void copyToFieldArray(byte[] v)
     {
