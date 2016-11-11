@@ -20,3 +20,9 @@ Last updated: 10/29/2016
 4. [Homework 4: Prolog, Morse Code Data Recovery](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw4.html)
 
         N/A
+
+5. [Homework 5: Scheme, Listdiffs](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw5.html)
+
+        N/A
+
+
