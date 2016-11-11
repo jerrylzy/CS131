@@ -2,7 +2,7 @@
 
 [Course Website](http://web.cs.ucla.edu/classes/fall16/cs131/index.html)
 
-Last updated: 10/29/2016
+Last updated: 11/11/2016
 
 ## Homework Scores
 1. [Homework 1: OCaml, Fixedpoints and Grammar Filters](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw1.html)
