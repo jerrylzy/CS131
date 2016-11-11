@@ -1,0 +1,99 @@
+For signal_message/2, I use this definition of word:
+any nonempty sequence of tokens other than #
+
+The consequence is, when we run this test case:
+| ?- signal_message(
+     [1,1,1,0,1,1,1, % m
+      0,0,0,
+      1,1,1,0,1,1,1,0,1,1,1, % o
+      0,0,0,
+      1,0,1,1,1,0,1, % r
+      0,0,0,
+      1,0,1,0,1, % s
+      0,0,0,
+      1, % e
+      0,0,0,0,0,0,0, % #
+      1,1,1,0,1,0,1,1,1,0,1, % c
+      0,0,0,
+      1,1,1,0,1,1,1,0,1,1,1, % o
+      0,0,0,
+      1,0,1,0,1,0,1,0,1,0,1,0,1,0,1, % error
+      0,0,0,
+      1,0,1,0,1,0,1,0,1,0,1,0,1,0,1, % error
+      0,0,0,
+      1,0,1,0,1,0,1,0,1,0,1,0,1,0,1, % error
+      0,0,0,
+      1,0,1,1,1,0,1,0,1,0,1 % as
+     ],
+     M).
+
+M = [m,o,r,s,e,#,as] ? ;
+
+(30 ms) no
+
+Since 'error' is not a word, we omit it, too.
+
+| ?- signal_message(
+     [1,1,1,0,0,1,1,1,0,0,1,1,1,1],
+     M).
+
+M = [o] ? ;
+
+M = [m,t] ? ;
+
+M = [t,m] ? ;
+
+M = [t,t,t] ? ;
+
+(1 ms) no
+
+This syntax is ambiguous and generates all possibilities.
+
+| ?- signal_message(
+     [1,1,1,0,1,1,1, % m
+      0,0,0,
+      1,1,1,0,1,1,1,0,1,1,1, % o
+      0,0,0,
+      1,0,1,1,1,0,1, % r
+      0,0,0,
+      1,0,1,0,1, % s
+      0,0,0,
+      1, % e
+      0,0,0,0,0,0,0, % #
+      1,0,1,0,1,0,1,0,1,0,1,0,1,0,1, % error
+      0,0,0,
+      1,1,1,0,1,0,1,1,1,0,1, % c
+      0,0,0,
+      1,1,1,0,1,1,1,0,1,1,1, % o
+      0,0,0,
+      1,0,1,1,1,0,1,0,1,0,1 % as
+     ],
+     M).
+
+M = [c,o,as] ? ;
+
+(18 ms) no
+
+According to the spec:
+"As a special case, if your signal_message/2 implementation finds a word, 
+followed by zero or more spaces, followed by an error token, 
+it should omit the word, the spaces, and the error token; 
+it should then start scanning again after the omitted tokens, 
+looking for further errors."
+
+Thus, our input [m,o,r,s,e,#,error,c,o,as] should give [c,o,as]
+since the word followed by one space [m,o,r,s,e,#] is omitted along with error.
+
+| ?- signal_message(
+     [
+      1, % e
+      0,0,0,0,0,0,0, % #
+      1,0,1,0,1,0,1,0,1,0,1,0,1,0,1 % error
+     ],
+     M).
+
+M = [] ? ;
+
+(2 ms) no
+
+The same situation, a word followed by a space followed by error should be omitted.
