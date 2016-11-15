@@ -11,7 +11,7 @@ Last updated: 11/11/2016
 
 2. [Homework 2: OCaml, Naive Parsing of Context Free Grammars](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw2.html)
 
-        99      (1 point late penalty)
+        99 (1 point late penalty)
 
 3. [Homework 3: Java, Shared Memory Performance Races](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw3.html)
 
