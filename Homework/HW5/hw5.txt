@@ -1,0 +1,114 @@
+One strange thing is that if I put the test cases inside the .ss file,
+it says that 'let' is an unbound identifier.
+
+However, if I just load the file and run test cases in command line, 
+everything is fine.
+
+Seunghyun mentioned that "R6RS strictly requires environment for the eval procedure."
+I don't know whether this has anything to do with the strange error.
+
+; Test cases
+
+(define ils (append '(a e i o u) 'y))
+(define d1 (cons ils (cdr (cdr ils))))
+(define d2 (cons ils ils))
+(define d3 (cons ils (append '(a e i o u) 'y)))
+(define d4 (cons '() ils))
+(define d5 0)
+(define d6 (listdiff ils d1 37))
+(define d7 (append-ld d1 d2 d6))
+(define d9 (cons (cdr ils) 'y))
+(define d10 (listdiff ils))
+(define d12 (append-ld d1))
+(define e1 (expr-returning d1))
+(define e2 (expr-returning d2))
+
+(listdiff? d1)                         ;===>  #t
+(listdiff? d2)                           ;===>  #t
+(not (listdiff? d3))                         ;===>  #f
+(not (listdiff? d4))                         ;===>  #f
+(not (listdiff? d5))                         ;===>  #f
+(listdiff? d6)                        ;===>  #t
+(listdiff? d7)                        ;===>  #t
+(listdiff? d9)                        ;===>  #t
+(listdiff? d10)                        ;===>  #t
+(listdiff? d12)                        ;===>  #t
+;
+
+(not (null-ld? d1))                          ;===>  #f
+(null-ld? d2)                          ;===>  #t
+(not (null-ld? d3))                          ;===>  #f
+(not (null-ld? d6))                          ;===>  #f
+
+(listdiff? (cons-ld 'a d1))            ;===>  #t
+(equal? (listdiff->list (cons-ld 'a d1))
+        (cons 'a (listdiff->list d1)))    ;====> #t
+(listdiff? (cons-ld 'b d2))            ;===>  #t
+(equal? (listdiff->list (cons-ld 'b d2))
+        (cons 'b null))                ;===>  #t
+(equal? (listdiff->list d12)
+        (listdiff->list d1))                ;===>  #t
+(null? (listdiff->list (append-ld d2)))     ;===>  #t
+
+;
+
+(listdiff? (cons-ld 'x d1))             ;===>  #t
+(listdiff? (cons-ld 'x d2))             ;===>  #t
+
+;
+
+(equal? (car-ld d1) 'a)                            ;===>  a
+(equal? (car-ld d2) "error")                           ;===>  error
+(equal? (car-ld d3) "error")                        ;===>  error
+(equal? (car-ld d6) '(a e i o u . y))                          ;===>  (a e i o u . y)
+
+;
+
+(equal? (cdr-ld d1) '((e i o u . y) i o u . y))                           ;===>  ((e i o u . y) i o u . y)
+(equal? (cdr-ld d2) "error")                           ;===>  error
+(equal? (cdr-ld d3) "error")                            ;===>  error
+(equal? (car-ld d6) '(a e i o u . y))                           ;===>  (a e i o u . y)
+
+;
+
+(equal? (length-ld d1) 2)                         ;===>  2
+(equal? (length-ld d2) 0)                         ;===>  0
+(equal? (length-ld d3) "error")                        ;===>  error
+(equal? (length-ld d6) 3)                         ;===>  3
+(equal? (length-ld d7) 5)                         ;===>  5
+
+;
+
+(define kv1 (cons d1 'a))
+(define kv2 (cons d2 'b))
+(define kv3 (cons d3 'c))
+(define kv4 (cons d1 'd))
+(define d8 (listdiff kv1 kv2 kv3 kv4))
+
+(listdiff? d8)                         ;===>  #t
+(eq? (assq-ld d1 d8) kv1)              ;===>  #t
+(eq? (assq-ld d2 d8) kv2)              ;===>  #t
+(not (eq? (assq-ld d1 d8) kv4))              ;===>  #f
+
+
+;
+
+(eq? (car-ld d6) ils)                  ;===>  #t
+(eq? (car-ld (cdr-ld d6)) d1)          ;===>  #t
+(eqv? (car-ld (cdr-ld (cdr-ld d6))) 37);===>  #t
+(equal? (listdiff->list d6)
+        (list ils d1 37))              ;===>  #t
+
+
+;
+
+(define d11 (list->listdiff '(a e i o u))); ((a e i o u a) a)
+(listdiff? d11)                         ;===>  #t
+
+(newline)
+
+(listdiff? (eval e1))
+(listdiff? (eval e2))     		       ;===>  #t
+(listdiff->list (eval e1))             ;===>  (a e)
+(equal? (listdiff->list (eval e1))
+        (listdiff->list d1))           ;===>  #t
