@@ -2,7 +2,7 @@
 
 [Course Website](http://web.cs.ucla.edu/classes/fall16/cs131/index.html)
 
-Last updated: 11/11/2016
+Last updated: 11/22/2016
 
 ## Homework Scores
 1. [Homework 1: OCaml, Fixedpoints and Grammar Filters](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw1.html)
@@ -15,7 +15,7 @@ Last updated: 11/11/2016
 
 3. [Homework 3: Java, Shared Memory Performance Races](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw3.html)
 
-        N/A
+        100
 
 4. [Homework 4: Prolog, Morse Code Data Recovery](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw4.html)
 
