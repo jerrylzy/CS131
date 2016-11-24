@@ -2,7 +2,7 @@
 
 [Course Website](http://web.cs.ucla.edu/classes/fall16/cs131/index.html)
 
-Last updated: 11/22/2016
+Last updated: 11/23/2016
 
 ## Homework Scores
 1. [Homework 1: OCaml, Fixedpoints and Grammar Filters](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw1.html)
@@ -25,4 +25,12 @@ Last updated: 11/22/2016
 
         N/A
 
+6. [Homework 6: Coconut, Dart, Hack, Java, OCaml, Containerization support languages](http://web.cs.ucla.edu/classes/fall16/cs131/hw/hw6.html)
+
+        N/A
+
+## Project Score
+[Project: Python, Twisted Places proxy herd](http://web.cs.ucla.edu/classes/fall16/cs131/hw/pr.html)
+
+        N/A
 
