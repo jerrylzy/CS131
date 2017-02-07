@@ -106,4 +106,3 @@
       (let ([list (listdiff->list listdiff)])  
         (quasiquote (let ([tail (quote (unquote (cdr listdiff)))])
                       (cons (unquote (generate-symbols list)) tail))))))
-
